@@ -19,12 +19,6 @@ namespace :db do
     BookReadingTrackerGem::DatabaseTasks.migrate
   end
 
-  desc 'Rollback migrations'
-  task :rollback, [:steps] do |_, args|
-    steps = args[:steps]&.to_i || 1
-    BookReadingTrackerGem::DatabaseTasks.rollback(steps)
-  end
-
   desc 'Reset database'
   task :reset do
     BookReadingTrackerGem::DatabaseTasks.reset

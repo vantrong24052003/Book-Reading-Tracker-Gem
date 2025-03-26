@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 class CreateBooks < ActiveRecord::Migration[8.0]
   def change
     # Bảng Books
