@@ -5,6 +5,7 @@ require 'dotenv/load'
 require 'logger'
 require 'pg'
 require_relative '../config/database_connection'
+require_relative '../db/seeds'
 
 module BookReadingTrackerGem
   class DatabaseTasks
@@ -22,12 +23,12 @@ module BookReadingTrackerGem
         connect
         db_name = ENV.fetch('DATABASE_NAME', nil)
 
-        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT', nil)
-
+        # Sử dụng DATABASE_URL_TEST_CONNECT để kiểm tra kết nối
+        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT_LOCAL', nil)
         connection = PG.connect(test_connection_url)
 
         if database_exists?(connection, db_name)
-          puts "Lỗi: Database '#{db_name}' đã tồn tại!"
+          puts "Lỗi: Database '#{db_name}' đã tồn tại không thể tạo!"
         else
           connection.exec("CREATE DATABASE #{db_name}")
           puts "Đã tạo database: #{db_name} thành công!"
@@ -43,20 +44,15 @@ module BookReadingTrackerGem
         result.ntuples.positive?
       end
 
-      def database_exists?(connection, db_name)
-        result = connection.exec("SELECT 1 FROM pg_database WHERE datname = '#{db_name}'")
-        result.ntuples.positive?
-      end
-
       def drop
         db_name = ENV.fetch('DATABASE_NAME', nil)
 
         connection = PG.connect(ENV.fetch('DATABASE_URL_TEST_CONNECT', nil))
 
         connection.exec("SELECT pg_terminate_backend(pg_stat_activity.pid)
-                   FROM pg_stat_activity
-                   WHERE pg_stat_activity.datname = '#{db_name}'
-                   AND pid <> pg_backend_pid();")
+                         FROM pg_stat_activity
+                         WHERE pg_stat_activity.datname = '#{db_name}'
+                         AND pid <> pg_backend_pid();")
 
         if system("dropdb #{db_name}")
           puts "Đã xóa database: #{db_name}!"
@@ -71,10 +67,22 @@ module BookReadingTrackerGem
 
       def migrate
         connect
+
+        db_name = ENV.fetch('DATABASE_NAME', nil)
+        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT', nil)
+        connection = PG.connect(test_connection_url)
+
+        unless database_exists?(connection, db_name)
+          puts "Lỗi: Database '#{db_name}' không tồn tại! Không thể thực hiện migrate."
+          return
+        end
+
         migration_context.migrate
         puts 'Migrate thành công!'
       rescue StandardError => e
         puts "Lỗi khi migrate: #{e.message}"
+      ensure
+        connection&.close
       end
 
       def reset
@@ -89,10 +97,21 @@ module BookReadingTrackerGem
 
       def seed
         connect
-        require_relative '../db/seeds.rb'
-        puts 'Đã seed dữ liệu thành công!'
+
+        db_name = ENV.fetch('DATABASE_NAME', nil)
+        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT', nil)
+        connection = PG.connect(test_connection_url)
+
+        unless database_exists?(connection, db_name)
+          puts "Lỗi: Database '#{db_name}' không tồn tại! Không thể thực hiện seeding."
+          return
+        end
+
+        Seeder.run
       rescue StandardError => e
         puts "Lỗi khi seed dữ liệu: #{e.message}"
+      ensure
+        connection&.close
       end
     end
   end
