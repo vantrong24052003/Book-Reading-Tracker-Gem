@@ -23,9 +23,9 @@ module BookReadingTrackerGem
         connect
         db_name = ENV.fetch('DATABASE_NAME', nil)
 
-        # Sử dụng DATABASE_URL_TEST_CONNECT để kiểm tra kết nối
-        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT_LOCAL', nil)
-        connection = PG.connect(test_connection_url)
+        # Lấy DATABASE_URL tương ứng với môi trường
+        database_url = ENV.fetch('DATABASE_MODE', 'local') == 'supabase' ? ENV.fetch('DATABASE_URL_SUPABASE', nil) : ENV.fetch('DATABASE_URL_LOCAL', nil)
+        connection = PG.connect(database_url)
 
         if database_exists?(connection, db_name)
           puts "Lỗi: Database '#{db_name}' đã tồn tại không thể tạo!"
@@ -47,7 +47,9 @@ module BookReadingTrackerGem
       def drop
         db_name = ENV.fetch('DATABASE_NAME', nil)
 
-        connection = PG.connect(ENV.fetch('DATABASE_URL_TEST_CONNECT', nil))
+        # Lấy DATABASE_URL tương ứng với môi trường
+        database_url = ENV.fetch('DATABASE_MODE', 'local') == 'supabase' ? ENV.fetch('DATABASE_URL_SUPABASE', nil) : ENV.fetch('DATABASE_URL_LOCAL', nil)
+        connection = PG.connect(database_url)
 
         connection.exec("SELECT pg_terminate_backend(pg_stat_activity.pid)
                          FROM pg_stat_activity
@@ -69,8 +71,8 @@ module BookReadingTrackerGem
         connect
 
         db_name = ENV.fetch('DATABASE_NAME', nil)
-        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT', nil)
-        connection = PG.connect(test_connection_url)
+        database_url = ENV.fetch('DATABASE_MODE', 'local') == 'supabase' ? ENV.fetch('DATABASE_URL_SUPABASE', nil) : ENV.fetch('DATABASE_URL_LOCAL', nil)
+        connection = PG.connect(database_url)
 
         unless database_exists?(connection, db_name)
           puts "Lỗi: Database '#{db_name}' không tồn tại! Không thể thực hiện migrate."
@@ -99,8 +101,8 @@ module BookReadingTrackerGem
         connect
 
         db_name = ENV.fetch('DATABASE_NAME', nil)
-        test_connection_url = ENV.fetch('DATABASE_URL_TEST_CONNECT', nil)
-        connection = PG.connect(test_connection_url)
+        database_url = ENV.fetch('DATABASE_MODE', 'local') == 'supabase' ? ENV.fetch('DATABASE_URL_SUPABASE', nil) : ENV.fetch('DATABASE_URL_LOCAL', nil)
+        connection = PG.connect(database_url)
 
         unless database_exists?(connection, db_name)
           puts "Lỗi: Database '#{db_name}' không tồn tại! Không thể thực hiện seeding."
