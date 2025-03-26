@@ -11,5 +11,6 @@ class CreateReadingProgresses < ActiveRecord::Migration[7.0]
       t.date :finished_at
       t.timestamps
     end
+      add_index :reading_progresses, :status
   end
 end

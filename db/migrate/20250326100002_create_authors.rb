@@ -7,5 +7,6 @@ class CreateAuthors < ActiveRecord::Migration[7.0]
       t.text :biography
       t.timestamps
     end
+       add_index :authors, :author_name
   end
 end
