@@ -24,7 +24,7 @@ class CreateTables < ActiveRecord::Migration[8.0]
     create_table :book_authors do |t|
       t.references :book, null: false, foreign_key: true
       t.references :author, null: false, foreign_key: true
-      t.index [:book_id, :author_id], unique: true
+      t.index %i[book_id author_id], unique: true
     end
 
     # Bảng Categories
@@ -37,7 +37,7 @@ class CreateTables < ActiveRecord::Migration[8.0]
     create_table :book_categories do |t|
       t.references :book, null: false, foreign_key: true
       t.references :category, null: false, foreign_key: true
-      t.index [:book_id, :category_id], unique: true
+      t.index %i[book_id category_id], unique: true
     end
 
     # Bảng ReadingProgress

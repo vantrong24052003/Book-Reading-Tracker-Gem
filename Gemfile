@@ -17,6 +17,6 @@ gem 'pry', '~> 0.14'
 gem 'tty-prompt', '~> 0.23'
 
 gem 'bundler', '~> 2.4'
+gem 'fileutils'
 gem 'irb'
 gem 'rake', '~> 13.0'
-gem 'fileutils' 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # db/seeds.rb
 
 require_relative '../lib/book_reading_tracker_gem/models/book'
