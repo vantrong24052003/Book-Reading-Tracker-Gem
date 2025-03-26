@@ -84,7 +84,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  activerecord (= 7.1)
+  activerecord (= 7.1.0)
+  activesupport (= 7.1.0)
   awesome_print (= 1.8)
   benchmark (= 0.4.0)
   book_reading_tracker_gem!
