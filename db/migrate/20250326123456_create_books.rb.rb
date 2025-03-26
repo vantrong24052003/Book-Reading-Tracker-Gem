@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../config/database'
 
-class CreateTables < ActiveRecord::Migration[8.0]
+class CreateBooks < ActiveRecord::Migration[8.0]
   def change
     # Bảng Books
     create_table :books do |t|
