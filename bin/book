@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative '../lib/book_reading_tracker_gem/clis/cli.rb'
+# puts "ARGV: #{ARGV.inspect}"
+BookReadingTrackerGem::CLI.start(ARGV)

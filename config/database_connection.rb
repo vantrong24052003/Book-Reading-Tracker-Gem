@@ -6,6 +6,8 @@ require 'logger'
 
 class DatabaseConnection
   def self.connect
+    return if ActiveRecord::Base.connected? # Tránh kết nối lại nếu đã kết nối
+
     # Lấy chế độ cơ sở dữ liệu từ ENV, mặc định là 'local'
     database_mode = ENV.fetch('DATABASE_MODE', 'local')
 
@@ -17,7 +19,7 @@ class DatabaseConnection
                    end
 
     if database_url.nil?
-      puts "⚠️ Không tìm thấy cấu hình DATABASE_URL cho chế độ #{database_mode}"
+      puts "Không tìm thấy cấu hình DATABASE_URL cho chế độ #{database_mode}"
       return
     end
 
@@ -26,7 +28,7 @@ class DatabaseConnection
       ActiveRecord::Base.logger = Logger.new($stdout)
       puts "Kết nối thành công đến database ở chế độ #{database_mode}!"
     rescue StandardError => e
-      puts "⚠️ Lỗi kết nối tới database: #{e.message}"
+      puts "Lỗi kết nối tới database: #{e.message}"
     end
   end
 end
