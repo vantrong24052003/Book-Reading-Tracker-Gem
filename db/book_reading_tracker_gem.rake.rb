@@ -12,7 +12,12 @@ module BookReadingTrackerGem
     def initialize
       @db_name = ENV.fetch('DATABASE_NAME', nil)
       @database_mode = ENV.fetch('DATABASE_MODE', 'local')
-      @database_url = @database_mode == 'supabase' ? ENV.fetch('DATABASE_URL_SUPABASE', nil) : ENV.fetch('DATABASE_URL_LOCAL', nil)
+      @database_url = if @database_mode == 'supabase'
+                        ENV.fetch('DATABASE_URL_SUPABASE',
+                                  nil)
+                      else
+                        ENV.fetch('DATABASE_URL_LOCAL', nil)
+                      end
     end
 
     def connect

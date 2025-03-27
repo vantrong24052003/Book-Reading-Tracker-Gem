@@ -9,6 +9,6 @@ class CreateBooks < ActiveRecord::Migration[7.0]
       t.integer :published_year
       t.timestamps
     end
-      add_index :books, :title
+    add_index :books, :title
   end
 end

@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require_relative '../lib/book_reading_tracker_gem'
 
 BookReadingTrackerGem::CLI.start(ARGV)

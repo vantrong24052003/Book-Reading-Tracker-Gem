@@ -14,5 +14,4 @@ require_relative 'book_reading_tracker_gem/models/reading_progress'
 
 module BookReadingTrackerGem
   class Error < StandardError; end
-  
 end
