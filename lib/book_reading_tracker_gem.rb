@@ -11,6 +11,7 @@ require_relative 'book_reading_tracker_gem/models/category'
 require_relative 'book_reading_tracker_gem/models/book_author'
 require_relative 'book_reading_tracker_gem/models/book_category'
 require_relative 'book_reading_tracker_gem/models/reading_progress'
+require_relative '../config/database_connection'
 
 module BookReadingTrackerGem
   class Error < StandardError; end

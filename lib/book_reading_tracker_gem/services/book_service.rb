@@ -104,7 +104,7 @@ module BookReadingTrackerGem
       ensure_connection
       books = Book.includes(:reading_progress).all
       books.each do |book|
-        puts "Id: #{book.id}, Tiêu đề: #{book.title}, Trạng thái: #{book.reading_progress&.status || 'N/A'}, Trang đã đọc: #{book.reading_progress&.pages_read || 0}/#{book.reading_progress&.total_pages || 0}, ISBN: #{book.isbn}, Năm xuất bản: #{book.published_year}"
+        puts "Id: #{book.id}, Tiêu đề: #{book.title}, Trạng thái: #{book.reading_progress&.status || 'N/A'}, Trang đã đọc: #{book.reading_progress&.pages_read || 0}/#{book.reading_progress&.total_pages || 0}, ISBN: #{book.isbn}, Năm xuất bản: #{book.published_year}, created_at: #{book.created_at}, updated_at: #{book.updated_at} . "
       end
     end
 

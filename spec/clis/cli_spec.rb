@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'book_reading_tracker_gem/clis/cli'
 
@@ -23,8 +25,10 @@ module BookReadingTrackerGem
 
     describe '#add_book' do
       it 'calls BookService.add_book with correct arguments' do
-        cli.invoke(:add_book, ['Ruby Programming'], author: 'David', pages: 300, description: 'Learn Ruby', isbn: '1234567890', published_year: 2023)
-        expect(BookService).to have_received(:add_book).with('Ruby Programming', 'David', 300, 'Learn Ruby', '1234567890', 2023)
+        cli.invoke(:add_book, ['Ruby Programming'], author: 'David', pages: 300, description: 'Learn Ruby',
+                                                    isbn: '1234567890', published_year: 2023)
+        expect(BookService).to have_received(:add_book).with('Ruby Programming', 'David', 300, 'Learn Ruby',
+                                                             '1234567890', 2023)
       end
     end
 
