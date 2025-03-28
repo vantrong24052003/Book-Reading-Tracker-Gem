@@ -8,7 +8,6 @@ class CreateReadingProgresses < ActiveRecord::Migration[7.0]
       t.integer :pages_read, default: 0
       t.integer :total_pages, default: 0
       t.date :started_at
-      t.date :finished_at
       t.timestamps
     end
     add_index :reading_progresses, :status

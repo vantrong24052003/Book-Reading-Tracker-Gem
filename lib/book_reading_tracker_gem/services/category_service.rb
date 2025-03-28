@@ -5,22 +5,40 @@ require_relative '../../../config/database_connection'
 
 module BookReadingTrackerGem
   class CategoryService
-    def self.ensure_connection
-      DatabaseConnection.connect unless ActiveRecord::Base.connected?
-    end
-
     def self.add_category(name)
-      ensure_connection
+      DatabaseConnection.connect
       Category.create!(category_name: name)
-      puts "Đã thêm danh mục: #{name}."
+      puts "Add category '#{name}' successfully."
+    rescue StandardError => e
+      puts "Error adding category: #{e.message}"
+    ensure
+      DatabaseConnection.disconnect
     end
 
     def self.list_categories
-      ensure_connection
+      DatabaseConnection.connect
       categories = Category.all
-      categories.each do |category|
-        puts "Id: #{category.id}, Danh mục: #{category.category_name}"
+
+      if categories.empty?
+        puts 'Categories not found.'
+        return
       end
+
+      header = %w[id category_name created_at updated_at]
+      rows = categories.map do |category|
+        [
+          category.id,
+          category.category_name || 'N/A',
+          category.created_at,
+          category.updated_at
+        ]
+      end
+
+      CommonUtils.render_table(header, rows)
+    rescue StandardError => e
+      puts "Error listing categories: #{e.message}"
+    ensure
+      DatabaseConnection.disconnect
     end
   end
 end

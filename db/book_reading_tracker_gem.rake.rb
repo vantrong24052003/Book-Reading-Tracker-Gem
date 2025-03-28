@@ -13,9 +13,11 @@ module BookReadingTrackerGem
       @db_name = ENV.fetch('DATABASE_NAME', nil)
       @database_mode = ENV.fetch('DATABASE_MODE', 'local')
       @database_url = if @database_mode == 'supabase'
-                          ENV.fetch('DATABASE_URL_SUPABASE', 'postgresql://postgres.rfvveqejqtxfszsgdzml:Admin123%40@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres')
+                        ENV.fetch('DATABASE_URL_SUPABASE',
+                                  'postgresql://postgres.rfvveqejqtxfszsgdzml:Admin123%40@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres')
                       else
-                        ENV.fetch('DATABASE_URL_LOCAL', 'postgresql://vantrong:Admin123%40@localhost:5432/book_reading_tracker')
+                        ENV.fetch('DATABASE_URL_LOCAL',
+                                  'postgresql://vantrong:Admin123%40@localhost:5432/book_reading_tracker')
                       end
     end
 
