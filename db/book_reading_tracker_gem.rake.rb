@@ -10,8 +10,8 @@ require_relative '../db/seeds'
 module BookReadingTrackerGem
   class DatabaseTasks
     def initialize
-      @db_name = ENV.fetch('DATABASE_NAME', nil)
-      @database_mode = ENV.fetch('DATABASE_MODE', 'local')
+      @db_name = ENV.fetch('DATABASE_NAME', 'book_reading_tracker')
+      @database_mode = ENV.fetch('DATABASE_MODE', 'supabase')
       @database_url = if @database_mode == 'supabase'
                         ENV.fetch('DATABASE_URL_SUPABASE',
                                   'postgresql://postgres.rfvveqejqtxfszsgdzml:Admin123%40@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres')
