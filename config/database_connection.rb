@@ -27,7 +27,7 @@ class DatabaseConnection
 
     begin
       ActiveRecord::Base.establish_connection(database_url)
-      ActiveRecord::Base.logger = Logger.new($stdout)
+      # ActiveRecord::Base.logger = Logger.new($stdout)
       puts "Successfully connected to the database in #{database_mode} mode!"
     rescue StandardError => e
       puts "Failed to connect to the database: #{e.message}"

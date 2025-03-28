@@ -54,8 +54,14 @@ book_reading_tracker_gem add_book "Tên Sách" --author "Tên Tác Giả" --page
 - **Tùy chọn:** `--description`, `--isbn`, `--published_year`
 
 **Ví dụ:**
+📗 Thêm sách với 1 tác giả:
 ```bash
 book_reading_tracker_gem add_book "Lập trình Ruby" --author "David Hansson" --pages 300 --description "Học Ruby" --isbn "978-1234567890" --published_year 2023
+```
+
+📘 Thêm sách với nhiều tác giả:
+```bash
+book_reading_tracker_gem add_book "Clean Ruby Code" --author "Matz,Sandi Metz,Avdi Grimm" --pages 280 --description "Viết Ruby sạch và hiệu quả" --isbn "978-9876543210" --published_year 2024
 ```
 
 ---
@@ -181,7 +187,3 @@ book_reading_tracker_gem stats
 - Hiển thị thống kê tổng quan như tổng số sách, số trang đã đọc và tỷ lệ hoàn thành.
 
 ---
-
-
-## Kết luận
-CLI này cung cấp cách thức có cấu trúc để quản lý hoạt động đọc sách của bạn, theo dõi tiến độ và tổ chức tác giả cũng như danh mục một cách hiệu quả.

@@ -52,7 +52,7 @@
   - `PagesRead`: Số trang đã đọc (default: 0).
   - `TotalPages`: Tổng số trang (default: 0).
   - `StartedAt`: Ngày bắt đầu đọc.
-  - `FinishedAt`: Ngày kết thúc đọc.
+  - `CreatedAt` & `UpdatedAt`: Thời điểm tạo/cập nhật.
 ---
 ## :mag: **Mối Quan Hệ Giữa Các Bảng**
 - **1-N (One-to-Many):**

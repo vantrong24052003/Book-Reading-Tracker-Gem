@@ -26,8 +26,12 @@ module BookReadingTrackerGem
     end
 
     def migration_context
+      # bắt đầu từ thư mục chứa file database_tasks.rb, rồi đi từ đó tới ../db/migrate.
       migrations_paths = File.expand_path('../db/migrate', __dir__)
-      @migration_context ||= ActiveRecord::MigrationContext.new(migrations_paths)
+
+      @migration_context = ActiveRecord::MigrationContext.new(migrations_paths) if @migration_context.nil?
+      # puts migration_context.migrations.map(&:name)
+      @migration_context
     end
 
     def create
@@ -90,16 +94,6 @@ module BookReadingTrackerGem
       puts "Lỗi khi migrate: #{e.message}"
     end
 
-    def reset
-      drop
-      create
-      migrate
-      seed
-      puts 'Reset database thành công.'
-    rescue StandardError => e
-      puts "Lỗi khi reset database: #{e.message}"
-    end
-
     def seed
       connect
 
@@ -117,6 +111,16 @@ module BookReadingTrackerGem
       end
     rescue StandardError => e
       puts "Lỗi khi seed dữ liệu: #{e.message}"
+    end
+
+    def reset
+      drop
+      create
+      migrate
+      seed
+      puts 'Reset database thành công.'
+    rescue StandardError => e
+      puts "Lỗi khi reset database: #{e.message}"
     end
   end
 end

@@ -4,6 +4,7 @@ require 'rspec'
 require 'book_reading_tracker_gem/clis/cli'
 
 module BookReadingTrackerGem
+  # bundle exec rspec clis/cli_spec.rb
   RSpec.describe CLI do
     # described_class.new  ===  cli = CLI.new
     let(:cli) { described_class.new }

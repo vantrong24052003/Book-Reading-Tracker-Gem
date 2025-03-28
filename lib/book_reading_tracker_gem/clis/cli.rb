@@ -7,16 +7,15 @@ require_relative '../services/category_service'
 
 module BookReadingTrackerGem
   class CLI < Thor
-    # Quản lý sách
-    desc 'add_book TITLE --author AUTHOR --pages PAGES [--description DESCRIPTION] [--isbn ISBN] [--published_year YEAR]',
+    desc 'add_book TITLE --author AUTHOR1 AUTHOR2 ... --pages PAGES [--description DESCRIPTION] [--isbn ISBN] [--published_year YEAR]',
          'Thêm sách mới vào danh sách'
-    option :author, required: true
+    option :author, required: true, type: :array
     option :pages, required: true, type: :numeric
     option :description, required: false
     option :isbn, required: false
     option :published_year, required: false, type: :numeric
+
     def add_book(title)
-      # ruby bin/book add_book "Ruby Programming" --author "David Heinemeier Hansson" --pages 300 --description "Learn Ruby with Rails" --isbn "978-0134596882" --published_year 2023
       BookService.add_book(
         title,
         options[:author],

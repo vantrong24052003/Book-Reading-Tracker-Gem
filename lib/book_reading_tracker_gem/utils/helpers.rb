@@ -8,7 +8,7 @@ module CommonUtils
       puts 'No data available.'
     else
       table = TTY::Table.new(header, rows)
-      puts table.render(:ascii, resize: false)
+      puts table.render(:unicode, resize: false, alignments: %i[center])
     end
   end
 end

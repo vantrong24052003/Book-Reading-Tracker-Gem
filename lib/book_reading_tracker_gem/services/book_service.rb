@@ -6,17 +6,24 @@ require_relative '../../../config/database_connection'
 require_relative '../utils/helpers'
 module BookReadingTrackerGem
   class BookService
-    def self.add_book(title, author, total_pages, description = nil, isbn = nil, published_year = nil)
+    def self.add_book(title, authors, total_pages, description = nil, isbn = nil, published_year = nil)
       DatabaseConnection.connect
+
       book = Book.create!(
         title: title,
         description: description,
         isbn: isbn,
         published_year: published_year
       )
-      book.authors.create!(author_name: author)
+
+      authors.each do |author_name|
+        author = Author.find_or_create_by!(author_name: author_name)
+        book.authors << author unless book.authors.include?(author)
+      end
+
       book.create_reading_progress!(total_pages: total_pages)
-      puts "Add book: #{book.title} successfully"
+
+      puts "Add book: #{book.title} successfully with #{authors.size} author(s)."
     rescue StandardError => e
       puts "Error adding book: #{e.message}"
     ensure
