@@ -6,8 +6,11 @@ require_relative '../../../config/database_connection'
 require_relative '../utils/helpers'
 module BookReadingTrackerGem
   class BookService
-    def self.add_book(title, authors, total_pages, description = nil, isbn = nil, published_year = nil)
+    def self.add_book(title, author_ids, total_pages, description = nil, isbn = nil, published_year = nil)
       DatabaseConnection.connect
+
+      # Xóa id trùng của tác giả 
+      unique_author_ids = author_ids.uniq
 
       book = Book.create!(
         title: title,
@@ -16,14 +19,14 @@ module BookReadingTrackerGem
         published_year: published_year
       )
 
-      authors.each do |author_name|
-        author = Author.find_or_create_by!(author_name: author_name)
+      unique_author_ids.each do |author_id|
+        author = Author.find(author_id)
         book.authors << author unless book.authors.include?(author)
       end
 
       book.create_reading_progress!(total_pages: total_pages)
 
-      puts "Add book: #{book.title} successfully with #{authors.size} author(s)."
+      puts "Add book: #{book.title} successfully with #{unique_author_ids.size} author(s)."
     rescue StandardError => e
       puts "Error adding book: #{e.message}"
     ensure

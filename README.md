@@ -45,7 +45,7 @@ gem 'tty-table', '0.12.0'
 
 ### Thêm Sách
 ```bash
-book_reading_tracker_gem add_book "Tên Sách" --author "Tên Tác Giả" --pages 300 [--description "..."] [--isbn "..."] [--published_year 2023]
+book_reading_tracker_gem add_book "Tên Sách" --author AUTHOR_ID1 AUTHOR_ID2 ... --pages 300 [--description "..."] [--isbn "..."] [--published_year 2023]
 ```
 
 **Mô tả:**
@@ -56,12 +56,12 @@ book_reading_tracker_gem add_book "Tên Sách" --author "Tên Tác Giả" --page
 **Ví dụ:**
 📗 Thêm sách với 1 tác giả:
 ```bash
-book_reading_tracker_gem add_book "Lập trình Ruby" --author "David Hansson" --pages 300 --description "Học Ruby" --isbn "978-1234567890" --published_year 2023
+book_reading_tracker_gem add_book "Lập trình Ruby" --author 1 --pages 300 --description "Học Ruby" --isbn "978-1234567890" --published_year 2023
 ```
 
 📘 Thêm sách với nhiều tác giả:
 ```bash
-book_reading_tracker_gem add_book "Clean Ruby Code" --author "Matz,Sandi Metz,Avdi Grimm" --pages 280 --description "Viết Ruby sạch và hiệu quả" --isbn "978-9876543210" --published_year 2024
+book_reading_tracker_gem add_book "Clean Ruby Code" --author 1 2 3 --pages 280 --description "Viết Ruby sạch và hiệu quả" --isbn "978-9876543210" --published_year 2024
 ```
 
 ---

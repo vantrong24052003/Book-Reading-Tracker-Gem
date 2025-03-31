@@ -22,12 +22,11 @@ class Seeder
     category1 = Category.create!(category_name: 'Programming')
     category2 = Category.create!(category_name: 'Web Development')
 
-    BookAuthor.create!(book: book1, author: author1)
-    BookAuthor.create!(book: book1, author: author2)
-    BookAuthor.create!(book: book2, author: author2)
+    book1.authors << [author1, author2]
+    book2.authors << author2
 
-    BookCategory.create!(book: book1, category: category1)
-    BookCategory.create!(book: book2, category: category2)
+    book1.categories << category1
+    book2.categories << category2
 
     ReadingProgress.create!(book: book1, status: 'reading', pages_read: 50, total_pages: 200,
                             started_at: Date.today - 7)

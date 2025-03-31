@@ -7,7 +7,8 @@ require_relative '../services/category_service'
 
 module BookReadingTrackerGem
   class CLI < Thor
-    desc 'add_book TITLE --author AUTHOR1 AUTHOR2 ... --pages PAGES [--description DESCRIPTION] [--isbn ISBN] [--published_year YEAR]',
+    # ruby bin/book add_book "Ruby Programming" --author 1 2 --pages 300 --description "A comprehensive guide to Ruby programming." --isbn "978-3-16-148410-0" --published_year 2023
+    desc 'add_book TITLE --author AUTHOR_ID1 AUTHOR_ID2 ... --pages PAGES [--description DESCRIPTION] [--isbn ISBN] [--published_year YEAR]',
          'Thêm sách mới vào danh sách'
     option :author, required: true, type: :array
     option :pages, required: true, type: :numeric
@@ -18,7 +19,7 @@ module BookReadingTrackerGem
     def add_book(title)
       BookService.add_book(
         title,
-        options[:author],
+        options[:author].map(&:to_i), # Convert author IDs to integers
         options[:pages],
         options[:description],
         options[:isbn],
